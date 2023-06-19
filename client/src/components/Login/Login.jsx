@@ -1,11 +1,29 @@
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../../styles/styles.js";
+import axios from "axios";
+import { server } from "../../Server.js";
+import {toast} from "react-toastify"
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState("false");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await axios.post(`${server}/user/login-user`, {
+      email,
+      password,
+    }, {withCredentials: true}).then((res)=>{
+      toast.success("Login Success!")
+      navigate("/");
+    }).catch((error)=>{
+      toast.error(error.response.data.message);
+    })
+  }
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -15,7 +33,7 @@ const Login = () => {
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="email"
@@ -44,7 +62,7 @@ const Login = () => {
               </label>
               <div className="mt-1 relative">
                 <input
-                  type={visible ? "text" : "password"}
+                  type={!visible ? "text" : "password"}
                   name="password"
                   autoComplete="current-password"
                   required

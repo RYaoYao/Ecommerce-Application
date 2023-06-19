@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import styles from "../../styles/styles.js";
 import { RxAvatar } from "react-icons/rx";
 import axios from "axios";
 import { server } from "../../Server.js";
+import {toast} from "react-toastify"
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState("false");
   const [avatar, setAvatar] = useState(null);
+
+
+  const sleep = ms => new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,10 +28,20 @@ const Signup = () => {
     newForm.append("email",email);
     newForm.append("password", password);
 
-    axios.post(`${server}/user/create-user`,newForm,config).then((res) => {
-      console.log(res);
-    }).then((err) => {
-      console.log(err)
+    axios.post(`${server}/user/create-user`,newForm,config).then(async (res) => {
+      if((res.data.success === true)){
+        toast.success(res.data.message);
+        setName("");
+        setEmail("");
+        setPassword("");
+        setAvatar();
+      }
+    }).catch((err) => {
+      toast.error(err.response.data.message);
+      setName("");
+        setEmail("");
+        setPassword("");
+        setAvatar();
     })
   };
   const handleFileInputChange = (e) => {
