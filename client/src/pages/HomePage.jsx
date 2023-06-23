@@ -4,7 +4,9 @@ import Hero from "../components/HomePage/Hero.jsx"
 import Categories from "../components/HomePage/Categories/Categories.jsx"
 import BestDeals from "../components/HomePage/BestDeals/BestDeals.jsx"
 import FeaturedProduct from "../components/HomePage/FeaturedProduct/FeaturedProduct.jsx"
-import Events from "../components/Events/Events.jsx"
+import Events from "../components/HomePage/Events/Events.jsx"
+import Sponsored from "../components/HomePage/Sponsored/Sponsored.jsx"
+import Footer from "../components/HomePage/Footer/Footer.jsx"
 const HomePage = () => {
   return (
     <div>
@@ -14,6 +16,8 @@ const HomePage = () => {
    <BestDeals />
    <Events />
    <FeaturedProduct />
+   <Sponsored />
+   <Footer />
    </div>
   )
 }
