@@ -1,28 +1,39 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { LoginPage, SignUpPage, ActivationPage,HomePage } from "./Routes.js";
+import {
+  LoginPage,
+  SignUpPage,
+  ActivationPage,
+  HomePage,
+  ProductPage,
+  BestSellingPage,
+  EventPage,
+  FAQPage,
+} from "./Routes.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
-import axios from "axios";
-import { server } from "./Server.js";
-import {toast} from "react-toastify"
+
 import Store from "./redux/store";
 import { loadUser } from "./redux/actions/user";
 const App = () => {
-  useEffect(()=>{
-   Store.dispatch(loadUser());
-  },[])
+  useEffect(() => {
+    Store.dispatch(loadUser());
+  }, []);
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element= {<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route
           path="/activation/:activationToken"
           element={<ActivationPage />}
         />
+        <Route path="/products" element={<ProductPage />} />
+        <Route path="/best-selling" element={<BestSellingPage />} />
+        <Route path="/events" element={<EventPage />} />
+        <Route path="/faq" element={<FAQPage />} />
       </Routes>
       <ToastContainer
         position="top-right"

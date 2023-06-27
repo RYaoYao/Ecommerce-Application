@@ -1,6 +1,6 @@
 import React from 'react'
 import { AiFillFacebook, AiFillInstagram, AiFillYoutube, AiOutlineTwitter } from 'react-icons/ai'
-import { footerProductLinks, footerSupportLinks, footercompanyLinks } from '../../../static/data'
+import { footerProductLinks, footerSupportLinks, footercompanyLinks } from '../../static/data'
 import { Link } from 'react-router-dom'
 
 const Footer = () => {

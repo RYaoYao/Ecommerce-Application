@@ -8,11 +8,14 @@ import {
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import {CgProfile} from "react-icons/cg"
+import { backend_url } from "../../Server";
 import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { BiMenuAltLeft } from "react-icons/bi";
 import DropDown from "./DropDown.jsx";
 import Navbar from "./Navbar.jsx";
+import {useSelector} from "react-redux"
 const Header = ({ activeHeading }) => {
+  const {isAuthenticated, user,loading} = useSelector(state => state.user)
   const [searchItem, setSearchItem] = useState("");
   const [searchData, setSearchData] = useState(null);
   const [active, setActive] = useState(false);
@@ -44,7 +47,7 @@ const Header = ({ activeHeading }) => {
         <div className="hidden 800px:h-[50px] 800px:my-[20px] 800px:flex items-center justify-between">
           <div className="">
             <Link to="/">
-              <img src="https://shopo.quomodothemes.website/assets/images/logo.svg" />
+              <img src="https://shopo.quomodothemes.website/assets/images/logo.svg" alt=""/>
             </Link>
           </div>
           <div className="w-[50%] relative">
@@ -147,10 +150,19 @@ const Header = ({ activeHeading }) => {
             </div>
             <div className={`${styles.noramlFlex}`}>
               <div className="relative cursor-pointer mr-[15px]">
-                <CgProfile
+                {isAuthenticated ? (
+                  <Link to="/profile">
+                    <img src={`${backend_url}${user.avatar}`} alt=""  className="w-[40px] h-[40px] rounded-full border-[2px] border-[#0eae88]"/>
+                  </Link>
+                ): (
+                  <Link to="/Login">
+                    <CgProfile
                   size={30}
                   color="rgb(255 255 255 / 83%)"
                 />
+                  </Link>
+                )}
+                
               </div>
             </div>
           </div>

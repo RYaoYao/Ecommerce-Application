@@ -6,7 +6,7 @@ import BestDeals from "../components/HomePage/BestDeals/BestDeals.jsx"
 import FeaturedProduct from "../components/HomePage/FeaturedProduct/FeaturedProduct.jsx"
 import Events from "../components/HomePage/Events/Events.jsx"
 import Sponsored from "../components/HomePage/Sponsored/Sponsored.jsx"
-import Footer from "../components/HomePage/Footer/Footer.jsx"
+import Footer from "../components/Layout/Footer.jsx"
 const HomePage = () => {
   return (
     <div>
