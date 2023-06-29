@@ -427,7 +427,7 @@ export const navItems = [
         },
         {
           public_id: "test",
-          url: "https://eratablet.com/wp-content/uploads/2022/08/H51ba6537405f4948972e293927673546u.jpg",
+          url: "https://dlcdnwebimgs.asus.com/gain/6AA18038-5009-46AE-8E57-46A18AFE3C89/w717/h525",
         },
       ],
       shop: {

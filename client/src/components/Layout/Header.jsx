@@ -7,20 +7,24 @@ import {
   AiOutlineSearch,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import {CgProfile} from "react-icons/cg"
+import { CgProfile } from "react-icons/cg";
 import { backend_url } from "../../Server";
 import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import { BiMenuAltLeft } from "react-icons/bi";
 import DropDown from "./DropDown.jsx";
 import Navbar from "./Navbar.jsx";
-import {useSelector} from "react-redux"
+import { useSelector } from "react-redux";
+import Cart from "../cart/Cart.jsx"
+import Wishlist from "../wishlist/Wishlist.jsx";
+
 const Header = ({ activeHeading }) => {
-  const {isAuthenticated, user,loading} = useSelector(state => state.user)
+  const { isAuthenticated, user, loading } = useSelector((state) => state.user);
   const [searchItem, setSearchItem] = useState("");
   const [searchData, setSearchData] = useState(null);
   const [active, setActive] = useState(false);
   const [dropDown, setDropDown] = useState(false);
-
+  const [openCart, setOpenCart] = useState(false);
+  const [openWishList, setOpenWishList] = useState(false);
   const handleSearchText = (e) => {
     const item = e.target.value;
     setSearchItem(item);
@@ -47,7 +51,10 @@ const Header = ({ activeHeading }) => {
         <div className="hidden 800px:h-[50px] 800px:my-[20px] 800px:flex items-center justify-between">
           <div className="">
             <Link to="/">
-              <img src="https://shopo.quomodothemes.website/assets/images/logo.svg" alt=""/>
+              <img
+                src="https://shopo.quomodothemes.website/assets/images/logo.svg"
+                alt=""
+              />
             </Link>
           </div>
           <div className="w-[50%] relative">
@@ -130,7 +137,7 @@ const Header = ({ activeHeading }) => {
           </div>
           <div className="flex">
             <div className={`${styles.noramlFlex}`}>
-              <div className="relative cursor-pointer mr-[15px]">
+              <div className="relative cursor-pointer mr-[15px]" onClick={()=> setOpenWishList(!openWishList)}>
                 <AiOutlineHeart size={30} color="rgb(255 255 255 / 83%)" />
                 <span className="absolute right-0 top-0 rounded-full bg-[#3bc177] w-4 h-4 top right p-0 m-0 text-white font-mono text-[12px] leading-tight text-center">
                   0
@@ -138,7 +145,7 @@ const Header = ({ activeHeading }) => {
               </div>
             </div>
             <div className={`${styles.noramlFlex}`}>
-              <div className="relative cursor-pointer mr-[15px]">
+              <div className="relative cursor-pointer mr-[15px]" onClick={()=> setOpenCart(!openCart)}>
                 <AiOutlineShoppingCart
                   size={30}
                   color="rgb(255 255 255 / 83%)"
@@ -152,19 +159,31 @@ const Header = ({ activeHeading }) => {
               <div className="relative cursor-pointer mr-[15px]">
                 {isAuthenticated ? (
                   <Link to="/profile">
-                    <img src={`${backend_url}${user.avatar}`} alt=""  className="w-[40px] h-[40px] rounded-full border-[2px] border-[#0eae88]"/>
+                    <img
+                      src={`${backend_url}${user.avatar}`}
+                      alt=""
+                      className="w-[40px] h-[40px] rounded-full border-[2px] border-[#0eae88]"
+                    />
                   </Link>
-                ): (
+                ) : (
                   <Link to="/Login">
-                    <CgProfile
-                  size={30}
-                  color="rgb(255 255 255 / 83%)"
-                />
+                    <CgProfile size={30} color="rgb(255 255 255 / 83%)" />
                   </Link>
                 )}
-                
               </div>
             </div>
+            {/*Pop ups */}
+            {
+              openCart ? (
+                <Cart setOpenCart={setOpenCart} />) : (null
+              )
+            }
+             {/*Wishlist popup */}
+             {
+              openWishList ? (
+                <Wishlist setOpenWishList={setOpenWishList} />) : (null
+              )
+            }
           </div>
         </div>
       </div>
